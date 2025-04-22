@@ -108,16 +108,13 @@ abstract class _BaseRouterData {
     this.shortcuts,
     this.actions,
     this.onGenerateInitialRoutes,
-    // ignore: unused_element
     this.highContrastDarkTheme,
-    // ignore: unused_element
     this.highContrastTheme,
     this.routeInformationProvider,
     this.routeInformationParser,
     this.routerDelegate,
     this.routerConfig,
     this.backButtonDispatcher,
-    // ignore: unused_element
     this.restorationScopeId,
     this.scrollBehavior,
     this.onNavigationNotification,
@@ -197,6 +194,8 @@ class MaterialAppData extends _BaseData {
     super.restorationScopeId,
     super.scrollBehavior,
     super.onNavigationNotification,
+    super.highContrastDarkTheme,
+    super.highContrastTheme,
     this.theme,
     this.debugShowMaterialGrid,
     this.darkTheme,
@@ -243,6 +242,10 @@ class MaterialAppRouterData extends _BaseRouterData {
     super.onGenerateInitialRoutes,
     super.scrollBehavior,
     super.onNavigationNotification,
+    super.restorationScopeId,
+    super.backButtonDispatcher,
+    super.highContrastDarkTheme,
+    super.highContrastTheme,
     this.theme,
     this.debugShowMaterialGrid,
     this.darkTheme,
@@ -465,7 +468,7 @@ class PlatformApp extends PlatformWidgetBase<CupertinoApp, MaterialApp> {
         cupertinoRouter = cupertino;
 
   @override
-  createMaterialWidget(BuildContext context) {
+  MaterialApp createMaterialWidget(BuildContext context) {
     final dataRouter = materialRouter?.call(context, platform(context));
 
     if (routeInformationParser != null ||
@@ -614,7 +617,7 @@ class PlatformApp extends PlatformWidgetBase<CupertinoApp, MaterialApp> {
   }
 
   @override
-  createCupertinoWidget(BuildContext context) {
+  CupertinoApp createCupertinoWidget(BuildContext context) {
     final dataRouter = cupertinoRouter?.call(context, platform(context));
 
     if (routeInformationParser != null ||

@@ -12,7 +12,7 @@ import 'package:flutter/material.dart'
         ButtonTextTheme,
         MaterialTapTargetSize,
         TextButton,
-        MaterialStatesController,
+        WidgetStatesController,
         VisualDensity;
 import 'package:flutter/widgets.dart';
 
@@ -58,7 +58,7 @@ class MaterialDialogActionData extends _BaseData {
   final Widget? icon;
   final ValueChanged<bool>? onHover;
   final ValueChanged<bool>? onFocusChange;
-  final MaterialStatesController? statesController;
+  final WidgetStatesController? statesController;
   final bool? isSemanticButton;
 }
 
@@ -138,7 +138,7 @@ class PlatformDialogAction
 
   final PlatformBuilder<CupertinoDialogActionData>? cupertino;
 
-  PlatformDialogAction({
+  const PlatformDialogAction({
     super.key,
     this.widgetKey,
     this.child,

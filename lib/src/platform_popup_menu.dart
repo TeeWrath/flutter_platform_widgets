@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart'
     show CupertinoActionSheet, CupertinoActionSheetAction;
 import 'package:flutter/material.dart'
     show
-        MaterialStateProperty,
+        ButtonStyle,
         PopupMenuButton,
         PopupMenuCanceled,
         PopupMenuDivider,
@@ -53,7 +53,7 @@ class MaterialPopupMenuOptionData extends _BaseData {
   final TextStyle? textStyle;
   final bool withDivider;
   final double dividerHeight;
-  final MaterialStateProperty<TextStyle?>? labelTextStyle;
+  final WidgetStateProperty<TextStyle?>? labelTextStyle;
 
   MaterialPopupMenuOptionData({
     super.key,
@@ -74,6 +74,7 @@ class CupertinoPopupMenuOptionData extends _BaseData {
   final VoidCallback? onPressed;
   final bool? isDefaultAction;
   final bool? isDestructiveAction;
+  final MouseCursor? mouseCursor;
 
   CupertinoPopupMenuOptionData({
     super.key,
@@ -81,6 +82,7 @@ class CupertinoPopupMenuOptionData extends _BaseData {
     this.onPressed,
     this.isDefaultAction,
     this.isDestructiveAction,
+    this.mouseCursor,
   });
 }
 
@@ -110,6 +112,11 @@ class MaterialPopupMenuData {
   final Color? iconColor;
   final AnimationStyle? popUpAnimationStyle;
   final bool? useRootNavigator;
+  final ButtonStyle? style;
+  final BorderRadius? borderRadius;
+  final EdgeInsetsGeometry? menuPadding;
+  final bool? requestFocus;
+  final RouteSettings? routeSettings;
 
   MaterialPopupMenuData({
     this.key,
@@ -137,6 +144,11 @@ class MaterialPopupMenuData {
     this.iconColor,
     this.popUpAnimationStyle,
     this.useRootNavigator,
+    this.style,
+    this.borderRadius,
+    this.menuPadding,
+    this.requestFocus,
+    this.routeSettings,
   });
 }
 
@@ -166,6 +178,7 @@ class CupertinoPopupMenuCancelButtonData {
   final VoidCallback? onPressed;
   final bool? isDefaultAction;
   final bool? isDestructiveAction;
+  final MouseCursor? mouseCursor;
 
   CupertinoPopupMenuCancelButtonData({
     this.child = const Text('Cancel'),
@@ -173,6 +186,7 @@ class CupertinoPopupMenuCancelButtonData {
     this.onPressed,
     this.isDefaultAction,
     this.isDestructiveAction,
+    this.mouseCursor,
   });
 }
 
@@ -229,12 +243,13 @@ class PlatformPopupMenu extends StatelessWidget {
                 key: data?.key,
                 isDefaultAction: data?.isDefaultAction ?? false,
                 isDestructiveAction: data?.isDestructiveAction ?? false,
-                child: data?.child ?? Text(option.label ?? ""),
+                child: data?.child ?? Text(option.label ?? ''),
                 onPressed: data?.onPressed ??
                     () {
                       Navigator.pop(context);
                       option.onTap?.call(option);
                     },
+                mouseCursor: data?.mouseCursor,
               );
             },
           ).toList(),
@@ -246,6 +261,7 @@ class PlatformPopupMenu extends StatelessWidget {
               isDefaultAction: cancelData.isDefaultAction ?? false,
               isDestructiveAction: cancelData.isDestructiveAction ?? false,
               onPressed: cancelData.onPressed ?? () => Navigator.pop(context),
+              mouseCursor: cancelData.mouseCursor,
             ),
     );
   }
@@ -265,7 +281,7 @@ class PlatformPopupMenu extends StatelessWidget {
               final data = option.material?.call(context, platform(context));
               items.add(PopupMenuItem<PopupMenuOption>(
                 value: option,
-                child: data?.child ?? Text(option.label ?? ""),
+                child: data?.child ?? Text(option.label ?? ''),
                 enabled: data?.enabled ?? true,
                 height: data?.height ?? kMinInteractiveDimension,
                 key: data?.key,
@@ -308,6 +324,11 @@ class PlatformPopupMenu extends StatelessWidget {
       iconColor: data?.iconColor,
       popUpAnimationStyle: data?.popUpAnimationStyle,
       useRootNavigator: data?.useRootNavigator ?? false,
+      style: data?.style,
+      borderRadius: data?.borderRadius,
+      menuPadding: data?.menuPadding,
+      requestFocus: data?.requestFocus,
+      routeSettings: data?.routeSettings,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-showDatePickerWithCustomCupertinoStateful(BuildContext context) async {
+Future<void> showDatePickerWithCustomCupertinoStateful(BuildContext context) async {
   final now = DateUtils.dateOnly(DateTime.now());
   final firstDate = now.subtract(const Duration(days: 100));
   final lastDate = now.add(const Duration(days: 100));
@@ -23,7 +23,7 @@ showDatePickerWithCustomCupertinoStateful(BuildContext context) async {
   }
 }
 
-showDatePickerWithCustomCupertino(BuildContext context) async {
+Future<void> showDatePickerWithCustomCupertino(BuildContext context) async {
   final now = DateUtils.dateOnly(DateTime.now());
   final firstDate = now.subtract(const Duration(days: 100));
   final lastDate = now.add(const Duration(days: 100));
@@ -61,11 +61,11 @@ showDatePickerWithCustomCupertino(BuildContext context) async {
   }
 }
 
-_showResultDialog(BuildContext context, String text) {
+void _showResultDialog(BuildContext context, String text) {
   showPlatformDialog(
     context: context,
     builder: (_) => PlatformAlertDialog(
-      title: Text('Alert'),
+      title: const Text('Alert'),
       content: Text('$text content'),
       actions: <Widget>[
         PlatformDialogAction(
@@ -153,17 +153,17 @@ class _CustomCupertinoDatePicker extends StatelessWidget {
   const _CustomCupertinoDatePicker({
     required this.contentData,
     required this.onDateTimeChanged,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.data,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.modalColor,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.modalHeight = 300,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.mode = CupertinoDatePickerMode.date,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.doneLabel,
-    // ignore: unused_element
+    // ignore: unused_element_parameter
     this.cancelLabel,
     Key? key,
   }) : super(key: key);
